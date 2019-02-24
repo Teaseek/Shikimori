@@ -10,6 +10,7 @@ namespace WpfApp2
 {
 	public class User
 	{
+		private readonly int userID;
 		public UserInfo Info { get; private set; }
 
 		public List<AnimeRate> Anime = new List<AnimeRate>();
@@ -20,13 +21,16 @@ namespace WpfApp2
 		public List<AnimeRate> OnHoldAnime => Anime.Where(x => x.UserStatus == "on_hold").ToList();
 		public List<AnimeRate> DroppedAnime => Anime.Where(x => x.UserStatus == "dropped").ToList();
 
-		//public List<MangaRate> Manga = new List<MangaRate>();
 		public User(int userID)
+		{
+			this.userID = userID;
+			GetInfo();
+		}
+
+		public void GetInfo()
 		{
 			Info = GetUserInfo(userID);
 			Anime = GetAnimeRates(userID);
-			//Manga = GetMangaRates(userID);
 		}
-
 	}
 }

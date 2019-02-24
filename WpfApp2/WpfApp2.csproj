@@ -39,11 +39,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Download\ShikiApiLib-master\ShikiApiLib\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ShikiApiLib">
-      <HintPath>D:\Download\ShikiApiLib-master\ShikiApiLib\bin\Debug\ShikiApiLib.dll</HintPath>
+    <Reference Include="ShikiApiLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\University\Programming\WPF something\ShikiApiLib-master\ShikiApiLib\bin\Debug\ShikiApiLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -62,8 +65,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Anime.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Services\RelayCommand.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+    <Compile Include="ViewModels\AnimeMatchViewModel.cs" />
+    <Compile Include="ViewModels\ApplicationViewModel.cs" />
+    <Compile Include="Models\Anime.cs" />
+    <Compile Include="Models\AnimeMatch.cs" />
+    <Compile Include="Models\User.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,7 +109,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
