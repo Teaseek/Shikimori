@@ -1,0 +1,191 @@
+﻿<Window x:Class="AppMatches.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:AppMatches"
+        mc:Ignorable="d"
+        Title="AppMatches"
+        Height="450"
+        Width="800">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
+        <Style x:Key="TitleName" TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger  Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF5F65DE" />
+                </Trigger>
+                <Trigger  Property="IsMouseOver" Value="false">
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="NonSelectedListBox" TargetType="ListBox">
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="AnimeLb"
+                 Grid.Column="0"
+                 ItemsSource="{Binding AnimeMatchs}"
+                 SelectedItem="{Binding SelectedAnimeMatch}"
+                 Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Width="250">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Height="127"
+                               Width="88" 
+                               Grid.Column="0"
+                               Margin="5"
+                               Source="{Binding Poster}">
+                        </Image>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding RussianName}"
+                                       FontWeight="DemiBold"
+                                       TextWrapping="WrapWithOverflow"
+                                       Grid.Row="0"/>
+                            <TextBlock Text="{Binding EnglishName}"
+                                       TextWrapping="WrapWithOverflow"
+                                       Grid.Row="1"/>
+                            <ListBox ItemsSource="{Binding Users}"
+                                     Grid.Row="2"
+                                     Style="{StaticResource NonSelectedListBox}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Column="1"
+              DataContext="{Binding SelectedAnimeMatch}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                  MaxWidth="317">
+                <Image x:Name="AnimeImg"
+                       Margin="5"
+                       Source="{Binding Poster}"
+                       VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Grid.Column="1"
+                  Margin="5">
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock x:Name="AnimeTitle"
+                                   Text="{Binding SelectedAnimeMatch.RussianName}"
+                                   FontSize="20"
+                                   Style="{StaticResource TitleName}"
+                                   ToolTip="{Binding SelectedAnimeMatch.Url}">
+                             <i:Interaction.Triggers>
+                                 <i:EventTrigger EventName="MouseUp">
+                                     <i:InvokeCommandAction Command="{Binding OpenSiteCommand}"
+                                                            CommandParameter="{Binding SelectedAnimeMatch}"/>
+                                 </i:EventTrigger>
+                             </i:Interaction.Triggers>
+                        </TextBlock>
+                        <WrapPanel>
+                            <TextBlock Text="Совпадение: "/>
+                            <ListBox x:Name="UserList"
+                                     ItemsSource="{Binding MatchUsers}"
+                                     Style="{StaticResource NonSelectedListBox}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Оценка: "/>
+                            <TextBlock Text="{Binding TitleScore}"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Тип: "/>
+                            <TextBlock Text="{Binding Kind}"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Эпизоды: "/>
+                            <TextBlock Text="{Binding TotalEpisodes}"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Длительность эпизода: "/>
+                            <TextBlock Text="{Binding Duration}"/>
+                            <TextBlock Text=" мин."/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding AiredOn}"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Жанры: "/>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Genres}"
+                                     Style="{StaticResource NonSelectedListBox}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding russian}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Рейтинг: "/>
+                            <TextBlock Text="{Binding Rating}"/>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Студия: "/>
+                            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ItemsSource="{Binding Studios}"
+                                     Style="{StaticResource NonSelectedListBox}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding name}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="Описание: "/>
+                            <TextBlock Text="{Binding Description}"
+                                       TextWrapping="WrapWithOverflow"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
