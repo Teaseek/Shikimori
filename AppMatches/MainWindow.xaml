@@ -110,7 +110,8 @@
                                    Text="{Binding SelectedAnimeMatch.RussianName}"
                                    FontSize="20"
                                    Style="{StaticResource TitleName}"
-                                   ToolTip="{Binding SelectedAnimeMatch.Url}">
+                                   ToolTip="{Binding SelectedAnimeMatch.Url}"
+                                   Cursor="Hand">
                              <i:Interaction.Triggers>
                                  <i:EventTrigger EventName="MouseUp">
                                      <i:InvokeCommandAction Command="{Binding OpenSiteCommand}"
@@ -148,6 +149,9 @@
                             <TextBlock Text=" мин."/>
                         </WrapPanel>
                         <WrapPanel>
+                            <TextBlock Text="Статус: "/>
+                            <TextBlock Text="{Binding TitleStatus}"/>
+                            <TextBlock Text=" "/>
                             <TextBlock Text="{Binding AiredOn}"/>
                         </WrapPanel>
                         <WrapPanel>
