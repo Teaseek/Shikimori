@@ -13,6 +13,7 @@ namespace AppMatches
 		public AnimeFullInfo AnimeInfo { get; set; }
 		public List<User> UsersMatch { get; set; }
 
+		public BitmapImage Poster;
 		public void GetFull()
 		{
 			if (AnimeInfo == null)
@@ -23,6 +24,11 @@ namespace AppMatches
 		{
 			AnimeShortInfo = animeRate;
 			UsersMatch = usersMatch;
+
+			Poster = new BitmapImage();
+			Poster.BeginInit();
+			Poster.UriSource = new Uri(AnimeShortInfo.Poster.original);
+			Poster.EndInit();
 		}
 
 		public static List<AnimeMatch> GetMatchAnimes(List<User> users)

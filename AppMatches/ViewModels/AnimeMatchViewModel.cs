@@ -55,18 +55,23 @@ namespace AppMatches
 		{
 			get { return Match.AnimeShortInfo.Url; }
 		}
+		
 		public BitmapImage Poster
 		{
 			get
 			{
-				var bitmap = new BitmapImage();
-				bitmap.BeginInit();
-				bitmap.UriSource = new Uri(Match.AnimeShortInfo.Poster.original, UriKind.Absolute);
-				bitmap.EndInit();
-				return bitmap;
+				return Match.Poster;
 			}
-		
+
 		}
+		//public Uri Poster
+		//{
+		//	get
+		//	{
+		//		return new Uri(Match.AnimeShortInfo.Poster.original);
+		//	}
+
+		//}
 		public string Kind
 		{
 			get { return Match.AnimeInfo.Kind; }
