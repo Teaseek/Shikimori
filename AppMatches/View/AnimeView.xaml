@@ -1,0 +1,199 @@
+﻿<UserControl x:Name="userControl" x:Class="AppMatches.Client.AnimeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AppMatches.Client"       
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:viewModels="clr-namespace:AppMatches.Client.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <d:DesignerProperties.DesignStyle>
+        <Style TargetType="UserControl" >
+            <Setter Property="Background" Value="White" />
+        </Style>
+    </d:DesignerProperties.DesignStyle>
+
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="IsReadOnlyCaretVisible" Value="True" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Medium" />
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Right" />
+        </Style>
+        <Style x:Key="TitleName" TargetType="TextBlock">
+            <Style.Triggers>
+                <Trigger  Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="#FF5F65DE" />
+                </Trigger>
+                <Trigger  Property="IsMouseOver" Value="false">
+                    <Setter Property="Foreground" Value="Black" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="AnimeLb"
+                 Grid.Column="0"
+                 ItemsSource="{Binding Matches}"
+                 SelectedItem="{Binding SelectedMatch}"
+                 Margin="5"
+                 d:DataContext="{d:DesignInstance {x:Type viewModels:MatchViewModel}}">
+        </ListBox>
+        <Grid Grid.Column="1"
+              Margin="5"
+              DataContext="{Binding SelectedMatch}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Image Margin="5"
+                       Source="{Binding Poster}"
+                       VerticalAlignment="Top"/>
+            </Grid>
+            <Grid Grid.Column="1"
+                  Margin="5">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              d:DataContext="{d:DesignInstance {x:Type viewModels:MatchViewModel}}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="Title"
+                                   Grid.ColumnSpan="2"
+                                   Grid.Row="0"
+                                   DataContext="{Binding DataContext, ElementName=userControl}"
+                                   Text="{Binding SelectedMatch.RussianName}"
+                                   FontSize="20"
+                                   Style="{StaticResource TitleName}"
+                                   ToolTip="{Binding SelectedMatch.Url}"
+                                   Cursor="Hand">
+                             <i:Interaction.Triggers>
+                                 <i:EventTrigger EventName="MouseUp">
+                                     <i:InvokeCommandAction Command="{Binding OpenSiteCommand}"
+                                                            CommandParameter="{Binding SelectedMatch}"/>
+                                 </i:EventTrigger>
+                             </i:Interaction.Triggers>
+                        </TextBlock>
+                        
+                        <Label Content="Совпадение:"
+                               Target="{Binding ElementName=Users}"
+                               Grid.Column="0"
+                               Grid.Row="1"/>
+                        <TextBox x:Name="Users"
+                                   Text="{Binding UsersMatchLine, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="1"/>
+                        <Label Content="Оценка:"
+                               Target="{Binding ElementName=ScoreText}"
+                               Grid.Column="0"
+                               Grid.Row="2"/>
+                        <TextBox x:Name="ScoreText"
+                                   Text="{Binding TitleScore, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="2"/>
+                        <Label Content="Тип:"
+                               Target="{Binding ElementName=KindText}"
+                               Grid.Column="0"
+                               Grid.Row="3"/>
+                        <TextBox x:Name="KindText"
+                                   Text="{Binding Kind, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="3"/>
+                        <Label Content="Эпизоды:"
+                               Target="{Binding ElementName=TotalEpisodesText}"
+                               Grid.Column="0"
+                               Grid.Row="4"/>
+                        <TextBox x:Name="TotalEpisodesText"
+                                   Text="{Binding TotalEpisodes, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="4"/>
+                        <Label Content="Длительность:"
+                               Target="{Binding ElementName=DurationPanel}"
+                               Grid.Column="0"
+                               Grid.Row="5"/>
+                        <WrapPanel x:Name="DurationPanel"
+                                   Grid.Column="1"
+                                   Grid.Row="5">
+                            <TextBox Text="{Binding Duration, Mode=OneWay}"/>
+                            <TextBox Text="мин."/>
+                        </WrapPanel>
+                        <Label Content="Статус:"
+                               Target="{Binding ElementName=StatusPanel}"
+                               Grid.Column="0"
+                               Grid.Row="6"/>
+                        <WrapPanel x:Name="StatusPanel"
+                                   Grid.Column="1"
+                                   Grid.Row="6">
+                            <TextBox Text="{Binding TitleStatus, Mode=OneWay}"/>
+                            <TextBox Text="{Binding AiredOn, Mode=OneWay}"/>
+                        </WrapPanel>
+                        <Label Content="Жанры:"
+                               Target="{Binding ElementName=GenresText}"
+                               Grid.Column="0"
+                               Grid.Row="7"/>
+                        <TextBox x:Name="GenresText"
+                                   Text="{Binding GenresLine, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="7"/>
+                        <Label Content="Рейтинг:"
+                               Target="{Binding ElementName=RatingText}"
+                               Grid.Column="0"
+                               Grid.Row="8"/>
+                        <TextBox x:Name="RatingText"
+                                   Text="{Binding Rating, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="8"/>
+                        <Label Content="Студия:"
+                               Target="{Binding ElementName=StudiosText}"
+                               Grid.Column="0"
+                               Grid.Row="9"/>
+                        <TextBox x:Name="StudiosText"
+                                   Text="{Binding StudiosLine, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="9"/>
+                        <Label Content="Описание:"
+                               Target="{Binding ElementName=DescriptionText}"
+                               Grid.Column="0"
+                               Grid.Row="10"/>
+                        <TextBox x:Name="DescriptionText"
+                                   Text="{Binding Description, Mode=OneWay}"
+                                   Grid.Column="1"
+                                   Grid.Row="10"/>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

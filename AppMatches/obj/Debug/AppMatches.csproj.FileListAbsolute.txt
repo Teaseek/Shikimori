@@ -7,7 +7,6 @@ C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\System.Windows.Inter
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\Newtonsoft.Json.pdb
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\Newtonsoft.Json.xml
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\ShikiApiLib.pdb
-C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\ShikiApiLib.xml
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\de\System.Windows.Interactivity.resources.dll
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\en\System.Windows.Interactivity.resources.dll
 C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\es\System.Windows.Interactivity.resources.dll
@@ -31,3 +30,5 @@ C:\Users\lobak\source\repos\AppMatches\AppMatches\obj\Debug\AppMatches.csproj.Co
 C:\Users\lobak\source\repos\AppMatches\AppMatches\obj\Debug\AppMatches.csproj.CopyComplete
 C:\Users\lobak\source\repos\AppMatches\AppMatches\obj\Debug\AppMatches.exe
 C:\Users\lobak\source\repos\AppMatches\AppMatches\obj\Debug\AppMatches.pdb
+C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\AppMatches.Model.dll
+C:\Users\lobak\source\repos\AppMatches\AppMatches\bin\Debug\AppMatches.Model.pdb

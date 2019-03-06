@@ -1,0 +1,68 @@
+﻿<Window x:Name="window" x:Class="AppMatches.Client.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:AppMatches.Client"
+        xmlns:viewModels="clr-namespace:AppMatches.Client.ViewModels"
+        mc:Ignorable="d"
+        Title="AppMatches"
+        Height="450"
+        Width="850">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        </Style>
+        <DataTemplate DataType="{x:Type viewModels:MatchViewModel}">
+            <Grid Width="250"  
+                  d:DataContext="{d:DesignInstance {x:Type viewModels:MatchViewModel}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Height="127"
+                       Width="88" 
+                       Grid.Column="0"
+                       Margin="5"
+                       Source="{Binding Poster}">
+                </Image>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding RussianName}"
+                                       FontWeight="DemiBold"
+                                       TextWrapping="WrapWithOverflow"
+                                       Grid.Row="0"/>
+                    <TextBlock Text="{Binding EnglishName}"
+                                       TextWrapping="WrapWithOverflow"
+                                       Grid.Row="1"/>
+                    <TextBlock Text="{Binding UsersMatchLine}"
+                               Grid.Row="2"/>
+
+                </Grid>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:StudioViewModel}">
+            <Grid>
+                <TextBlock Text="{Binding Name}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:GenreViewModel}">
+            <Grid>
+                <TextBlock Text="{Binding Name}"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:UserViewModel}">
+            <Grid>
+                <TextBlock Text="{Binding Name}"/>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <local:AnimeView/>
+    </Grid>
+</Window>

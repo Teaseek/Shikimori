@@ -1,1 +1,7 @@
 .vs/*
+AppMatches/bin/*
+AppMatches/obj/*
+AppMatches.Model/bin/*
+AppMatches.Model/obj/*
+ShikiApiLib/bin/*
+ShikiApiLib/obj/*

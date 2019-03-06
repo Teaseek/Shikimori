@@ -1,44 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using ShikiApiLib;
 using System.Windows;
+using AppMatches.Model;
 
-namespace AppMatches
+namespace AppMatches.Client.ViewModels
 {
 	public class ApplicationViewModel : INotifyPropertyChanged
 	{
-		private AnimeMatchViewModel selectedAnimeMatch;
-		public AnimeMatchViewModel SelectedAnimeMatch
+		private MatchViewModel _selectedMatch;
+		public MatchViewModel SelectedMatch
 		{
-			get { return selectedAnimeMatch; }
+			get => _selectedMatch;
 			set
 			{
-				selectedAnimeMatch = value;
-				selectedAnimeMatch.Match.GetFull();
-				OnPropertyChanged(nameof(SelectedAnimeMatch));
+				_selectedMatch = value;
+				_selectedMatch.Match.GetFullData();
+				OnPropertyChanged(nameof(SelectedMatch));
 			}
 		}
 
-		public ObservableCollection<AnimeMatchViewModel> AnimeMatchs { get; set; } = new ObservableCollection<AnimeMatchViewModel>();
-		public ObservableCollection<User> Users { get; set; } = new ObservableCollection<User>();
+		public ObservableCollection<MatchViewModel> Matches { get; set; } = new ObservableCollection<MatchViewModel>();
+		public ObservableCollection<UserViewModel> Users { get; set; } = new ObservableCollection<UserViewModel>();
 
 		public ApplicationViewModel()
 		{
-			var ids = new[] { 227956, 345242, 204018 }; //404534
-			foreach (var id in ids)
-				Users.Add(new User(id));
+			foreach (var user in User.Users)
+				Users.Add(new UserViewModel(user));
 
-			var matches = AnimeMatch.GetMatchAnimes(Users.ToList());
-			foreach (var match in matches)
-				AnimeMatchs.Add(new AnimeMatchViewModel(match));
+			foreach (var match in User.GetMatches(User.Users))
+				Matches.Add(new MatchViewModel(match));
 
-			AnimeMatchs = new ObservableCollection<AnimeMatchViewModel>(AnimeMatchs.OrderByDescending(o => o.MatchCount).ThenBy(x => x.RussianName));
+			Matches = new ObservableCollection<MatchViewModel>(Matches.OrderByDescending(o => o.MatchCount).ThenBy(x => x.RussianName));
 		}
 
 		#region Commands
@@ -51,12 +46,13 @@ namespace AppMatches
 				return openSiteCommand ??
 				  (openSiteCommand = new RelayCommand(obj =>
 				  {
-					  var selected = obj as AnimeMatchViewModel;
+					  var selected = obj as MatchViewModel;
 					  System.Diagnostics.Process myProcess = new System.Diagnostics.Process();
 					  try
 					  {
 						  myProcess.StartInfo.UseShellExecute = true;
-						  myProcess.StartInfo.FileName = selected.Url;
+						  if (selected != null)
+							  myProcess.StartInfo.FileName = selected.Url;
 						  myProcess.Start();
 					  }
 					  catch (Exception ex)

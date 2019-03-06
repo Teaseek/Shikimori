@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace AppMatches
+namespace AppMatches.Client
 {
 	public class RelayCommand : ICommand
 	{

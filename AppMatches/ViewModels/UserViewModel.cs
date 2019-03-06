@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Windows.Media.Imaging;
-using ShikiApiLib;
+using AppMatches.Model;
 
-namespace AppMatches
+namespace AppMatches.Client.ViewModels
 {
 	public class UserViewModel : INotifyPropertyChanged
 	{
@@ -19,10 +13,7 @@ namespace AppMatches
 			MatchUser = user;
 		}
 
-		public string Name
-		{
-			get { return MatchUser.Info.nickname; }
-		}
+		public string Name => MatchUser.Info.nickname;
 
 		public event PropertyChangedEventHandler PropertyChanged;
 		public void OnPropertyChanged([CallerMemberName]string prop = "")

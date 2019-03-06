@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMatches", "AppMatches\AppMatches.csproj", "{1A034399-F831-4AF7-901F-D72C8A1241FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMatches.Client", "AppMatches\AppMatches.Client.csproj", "{1A034399-F831-4AF7-901F-D72C8A1241FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppMatches.Model", "AppMatches.Model\AppMatches.Model.csproj", "{D489A460-BB64-4A5B-B4DB-4A681552CFED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShikiApiLib", "ShikiApiLib\ShikiApiLib.csproj", "{D64EC755-6C34-4099-9B43-3B601F100DE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1A034399-F831-4AF7-901F-D72C8A1241FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A034399-F831-4AF7-901F-D72C8A1241FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A034399-F831-4AF7-901F-D72C8A1241FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D489A460-BB64-4A5B-B4DB-4A681552CFED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D489A460-BB64-4A5B-B4DB-4A681552CFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D489A460-BB64-4A5B-B4DB-4A681552CFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D489A460-BB64-4A5B-B4DB-4A681552CFED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D64EC755-6C34-4099-9B43-3B601F100DE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D64EC755-6C34-4099-9B43-3B601F100DE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D64EC755-6C34-4099-9B43-3B601F100DE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D64EC755-6C34-4099-9B43-3B601F100DE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
