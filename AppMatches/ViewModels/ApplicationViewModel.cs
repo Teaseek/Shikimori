@@ -1,38 +1,66 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Documents;
 using AppMatches.Model;
 
 namespace AppMatches.Client.ViewModels
 {
 	public class ApplicationViewModel : INotifyPropertyChanged
 	{
-		private MatchViewModel _selectedMatch;
+		private MatchViewModel selectedMatch;
 		public MatchViewModel SelectedMatch
 		{
-			get => _selectedMatch;
+			get => selectedMatch;
 			set
 			{
-				_selectedMatch = value;
-				_selectedMatch.Match.GetFullData();
+				selectedMatch = value;
+				selectedMatch.Match.GetFullData();
 				OnPropertyChanged(nameof(SelectedMatch));
 			}
 		}
 
-		public ObservableCollection<MatchViewModel> Matches { get; set; } = new ObservableCollection<MatchViewModel>();
+		private ObservableCollection<MatchViewModel> matches = new ObservableCollection<MatchViewModel>();
+		public ObservableCollection<MatchViewModel> Matches
+		{
+			get => matches;
+			set
+			{
+				matches = value;
+				OnPropertyChanged(nameof(Matches));
+			}
+		}
 		public ObservableCollection<UserViewModel> Users { get; set; } = new ObservableCollection<UserViewModel>();
 
 		public ApplicationViewModel()
 		{
-			foreach (var user in User.Users)
+			for (var index = 0; index < User.Users.Count; index++)
+			{
+				var user = User.Users[index];
 				Users.Add(new UserViewModel(user));
+				Users[index].Selected += ApplicationViewModel_Selected;
+				Users[index].IsSelected = true;
+			}
 
-			foreach (var match in User.GetMatches(User.Users))
+			//SelectedUsers = Users;
+			//GetData(User.Users);
+		}
+
+		private void ApplicationViewModel_Selected(object sender, EventArgs e)
+		{
+			var users = Users.Where(x => x.IsSelected).ToList();
+			GetData(users.Select(x => x.MatchUser).ToList());
+		}
+
+		public void GetData(List<User> users)
+		{
+			Matches.Clear();
+			foreach (var match in User.GetMatches(users))
 				Matches.Add(new MatchViewModel(match));
-
 			Matches = new ObservableCollection<MatchViewModel>(Matches.OrderByDescending(o => o.MatchCount).ThenBy(x => x.RussianName));
 		}
 

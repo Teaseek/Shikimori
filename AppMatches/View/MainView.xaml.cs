@@ -27,7 +27,10 @@ namespace AppMatches.Client
 		public MainView()
 		{
 			InitializeComponent();
-			DataContext = new ApplicationViewModel();
+			var view = new ApplicationViewModel();
+			DataContext = view;
+			var s =AnimeView.AnimeLb;
+			var a = view.Matches;
 		}
 	}
 }

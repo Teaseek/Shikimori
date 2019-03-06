@@ -14,12 +14,14 @@ namespace AppMatches.Model
 		{
 			new User(227956),
 			new User(345242),
-			new User(204018)
-		}; //404534
+			new User(204018),
+			new User(504304),
+			new User(404534)
+		};
 
 		public static List<Match> GetMatches(List<User> users)
 		{
-			return Match.GetMatch(Users.ToList());
+			return Match.GetMatch(users);
 		}
 
 		private readonly int userID;

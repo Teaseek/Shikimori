@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using AppMatches.Model;
 
@@ -7,6 +8,23 @@ namespace AppMatches.Client.ViewModels
 	public class UserViewModel : INotifyPropertyChanged
 	{
 		public readonly User MatchUser;
+
+		public delegate void UserStateHandler(object sender, EventArgs e);
+		public event UserStateHandler Selected;
+
+		private bool isSelected = false;
+		public bool IsSelected
+		{
+			get => isSelected;
+
+			set
+			{
+				isSelected = value;
+				Selected?.Invoke(this, new EventArgs());
+				OnPropertyChanged(nameof(IsSelected));
+			}
+
+		}
 
 		public UserViewModel(User user)
 		{

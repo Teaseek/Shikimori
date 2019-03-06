@@ -23,6 +23,6 @@ namespace AppMatches.Client
         public AnimeView()
         {
             InitializeComponent();
-        }
-    }
+		}
+	}
 }
